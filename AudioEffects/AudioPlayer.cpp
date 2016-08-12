@@ -36,6 +36,8 @@ void AudioPlayer::play(WavFile &wav){
     num_samples = wav.getNumSamples();
     num_channels = wav.getNumChannels();
 
+    // Caution!
+    // Current implementationi of effects will change the data in the WavFile buffer!!
     buffer = effects->apply(wav.getData(), num_samples, num_channels, wav.getSampleRate());
     
     // Set up the Audio Stream Basic Description using the WavFile

@@ -36,6 +36,9 @@ public:
     // Deallocates old file if necessary
     void open(std::string path);
     
+    // Save the current data to a new .wav file
+    void save(std::string path);
+    
     // Getters
     std::string getFileName();
     uint16_t getFormat();

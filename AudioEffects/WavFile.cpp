@@ -307,6 +307,55 @@ void WavFile::open(std::string path){
                 f.ignore(static_cast<int>(skipsize));
         }
     }
+    f.close();
+}
+
+void WavFile::save(std::string path){
+    std::ofstream out;
+    out.open(path, std::ios::binary);
+    
+    if(!out.is_open()){
+        std::cerr << "Error: " << strerror(errno) << std::endl;
+        throw std::runtime_error("WavFile Error: Could not open file\n");
+    }
+    
+    uint32_t data_block_size = num_samples*num_channels*sizeof(float);
+    uint32_t fmt_block_size = 16;
+    
+    // Save RIFF Header
+    uint32_t riff_header =__builtin_bswap32((unsigned int)WavChunks::RiffHeader);
+    out.write(reinterpret_cast<char*>(&riff_header), sizeof(uint32_t));
+    uint32_t riff_size = 4 + (8 + fmt_block_size) + (8 + data_block_size);
+    out.write(reinterpret_cast<char*>(&riff_size), sizeof(uint32_t));
+    uint32_t wav_identifier = __builtin_bswap32(0x57415645);
+    out.write(reinterpret_cast<char*>(&wav_identifier), sizeof(uint32_t));
+    
+    // Save fmt block
+    uint32_t fmt_header = __builtin_bswap32((unsigned int)WavChunks::Format);
+    out.write(reinterpret_cast<char*>(&fmt_header), sizeof(uint32_t));
+    out.write(reinterpret_cast<char*>(&fmt_block_size), sizeof(uint32_t));
+    
+    uint16_t fmt_id = (uint16_t)WavFormat::IEEEFloatingPoint;
+    out.write(reinterpret_cast<char*>(&fmt_id), sizeof(uint16_t));
+    out.write(reinterpret_cast<char*>(&num_channels), sizeof(uint16_t));
+    out.write(reinterpret_cast<char*>(&sample_rate), sizeof(uint32_t));
+    out.write(reinterpret_cast<char*>(&byte_rate), sizeof(uint32_t));
+    out.write(reinterpret_cast<char*>(&block_align), sizeof(uint16_t));
+    
+    uint16_t samp_size = (uint16_t)32;
+    out.write(reinterpret_cast<char*>(&samp_size), sizeof(uint16_t));
+    
+    // Save Data Block
+    uint32_t data_header =__builtin_bswap32((unsigned int)WavChunks::Data);
+    out.write(reinterpret_cast<char*>(&data_header), sizeof(uint32_t));
+    out.write(reinterpret_cast<char*>(&data_block_size), sizeof(uint32_t));
+    
+    for(int sample = 0; sample < num_samples; ++sample){
+        for(int channel = 0; channel < num_channels; ++channel){
+            out.write(reinterpret_cast<char*>(&(samples[channel][sample])),sizeof(float));
+        }
+    }
+    out.close();
 }
 
 // Getters

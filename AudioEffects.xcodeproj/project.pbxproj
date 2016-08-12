@@ -40,6 +40,7 @@
 		5259E4BD1D5D6DE700E50CC9 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		5259E4BF1D5D6DEE00E50CC9 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		5259E4C11D5D7BF000E50CC9 /* test.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = test.wav; sourceTree = SOURCE_ROOT; };
+		5259E4C21D5E4C0E00E50CC9 /* save.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = save.wav; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +86,7 @@
 				5259E4B71D5D59BC00E50CC9 /* LowPassFilter.cpp */,
 				5259E4B81D5D59BC00E50CC9 /* LowPassFilter.hpp */,
 				5259E4C11D5D7BF000E50CC9 /* test.wav */,
+				5259E4C21D5E4C0E00E50CC9 /* save.wav */,
 			);
 			path = AudioEffects;
 			sourceTree = "<group>";

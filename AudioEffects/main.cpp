@@ -16,5 +16,7 @@ int main(int argc, const char * argv[]) {
     LowPassFilter lp;
     player.setEffects(&lp);
     
-    player.play("/Users/john/Documents/Xcode Projects/AudioEffects/test.wav");
+    WavFile w("/Users/john/Documents/Xcode Projects/AudioEffects/test.wav");
+    player.play(w);
+    w.save("/Users/john/Documents/Xcode Projects/AudioEffects/save.wav");
 }
