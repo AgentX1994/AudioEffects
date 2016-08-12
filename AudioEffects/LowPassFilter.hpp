@@ -37,7 +37,12 @@ public:
     
 protected:
 private:
-    float b;
+    
+    float tri_lfo_next(int sample_rate);
+    float min_param;
+    float max_param;
+    float auto_period;
+    int cur_sample;
 };
 
 #endif /* LowPassFilter_hpp */
