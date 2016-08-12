@@ -7,9 +7,14 @@
 //
 
 #include <iostream>
+#include "WavFile.hpp"
+#include "AudioPlayer.hpp"
+#include "LowPassFilter.hpp"
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
-    return 0;
+    AudioPlayer player;
+    LowPassFilter lp;
+    player.setEffects(&lp);
+    
+    player.play("/Users/john/Documents/Xcode Projects/AudioEffects/test.wav");
 }
